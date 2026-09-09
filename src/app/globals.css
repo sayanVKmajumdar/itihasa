@@ -1,0 +1,152 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #f7f2e7;
+  --color-paper-deep: #efe6d3;
+  --color-paper-dim: #e7dcc4;
+  --color-ink: #221a10;
+  --color-ink-soft: #5d5240;
+  --color-ink-faint: #8a7c66;
+  --color-accent: #b4532a;
+  --color-accent-deep: #8f3d1c;
+  --color-gold: #a8832f;
+  --color-highlight: #f5d76e;
+
+  --font-display: var(--font-fraunces), "Georgia", serif;
+  --font-body: var(--font-newsreader), "Georgia", serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+}
+
+/* ---- paper grain + vignette ---- */
+.paper-grain {
+  position: relative;
+}
+.paper-grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+
+/* ---- the highlighter pen ---- */
+.mark-key {
+  position: relative;
+  display: inline;
+  padding: 0.06em 0.18em;
+  margin: 0 -0.05em;
+  border-radius: 0.18em;
+  background-image: linear-gradient(
+    100deg,
+    rgba(245, 215, 110, 0) 0.5%,
+    rgba(245, 215, 110, 0.85) 2.5%,
+    rgba(245, 215, 110, 0.62) 55%,
+    rgba(245, 215, 110, 0.9) 96%,
+    rgba(245, 215, 110, 0) 99.5%
+  );
+  background-repeat: no-repeat;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  font-weight: 560;
+}
+
+/* ---- book typography ---- */
+.prose-book {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  line-height: 1.85;
+  letter-spacing: 0.003em;
+  color: #2c2418;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+}
+@media (min-width: 768px) {
+  .prose-book {
+    font-size: 1.1875rem;
+  }
+}
+.prose-book p + p {
+  margin-top: 1.35em;
+}
+
+.dropcap::first-letter {
+  font-family: var(--font-display);
+  font-weight: 700;
+  float: left;
+  font-size: 4.3em;
+  line-height: 0.78;
+  padding: 0.06em 0.12em 0 0;
+  color: var(--color-accent);
+}
+
+::selection {
+  background: rgba(180, 83, 42, 0.25);
+}
+
+/* ---- decorative rules ---- */
+.rule-double {
+  border-top: 1px solid rgba(34, 26, 16, 0.5);
+  border-bottom: 3px solid rgba(34, 26, 16, 0.75);
+  height: 5px;
+}
+
+.leader-dots {
+  border-bottom: 2px dotted rgba(34, 26, 16, 0.35);
+  transform: translateY(-0.35em);
+}
+
+/* ---- map labels ---- */
+.map-label {
+  paint-order: stroke;
+  stroke: #f0e8d5;
+  stroke-width: 3.5px;
+  stroke-linejoin: round;
+  fill: #2c2418;
+  font-weight: 600;
+  letter-spacing: 0.015em;
+}
+.map-region-label {
+  paint-order: stroke;
+  stroke: #f0e8d5;
+  stroke-width: 4px;
+  stroke-linejoin: round;
+  letter-spacing: 0.06em;
+}
+
+/* ---- ticker ---- */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.animate-marquee {
+  animation: marquee 60s linear infinite;
+}
+
+/* ---- scrollbar ---- */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-paper-deep);
+}
+::-webkit-scrollbar-thumb {
+  background: #c9b891;
+  border-radius: 6px;
+  border: 2px solid var(--color-paper-deep);
+}
